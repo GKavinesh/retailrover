@@ -38,18 +38,24 @@ const Sidebar = () => {
               <span>Billing</span>
             </li>
           </Link>
+
+
           <Link to="/products" style={{ textDecoration: "none" }}>
             <li>
               <StoreIcon className="icon" />
               <span>Inventory</span>
             </li>
           </Link>
-          <Link style={{ textDecoration: "none" }}>
+
+
+          <Link to="/" style={{ textDecoration: "none" }}>
           <li>
             <GroupIcon className="icon" />
             <span>Suppliers</span>
           </li>
           </Link>
+
+
           <Link style={{ textDecoration: "none" }}>
           <li>
             <PersonIcon className="icon" />

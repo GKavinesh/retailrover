@@ -1,8 +1,8 @@
-import Home from "./pages/Home/home";
-import Login from "./pages/login/Login";
-import List from "./pages/Billing/List";
-import Single from "./pages/single/Single";
-import New from "./pages/new/New";
+import Home from "./pages/Dashboard/home.jsx";
+import Login from "./pages/Customers/Login.jsx";
+import List from "./pages/Billing/List.jsx";
+import Single from "./pages/Employees/Single.jsx";
+import New from "./pages/Suppliers/New.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { productInputs, userInputs } from "./formSource";
 import "./style/dark.scss";
