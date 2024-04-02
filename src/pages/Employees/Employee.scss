@@ -1,0 +1,87 @@
+// Employee.scss
+
+.employee-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.employee-header {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.employee-form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+
+  input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+
+  button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+}
+
+.employee-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 5rem;
+
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #007bff;
+    color: #fff;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  tr:hover {
+    background-color: #ddd;
+  }
+
+  td:last-child {
+    display: flex;
+    gap: 5px;
+
+    button {
+      padding: 5px 10px;
+      font-size: 14px;
+      border-radius: 3px;
+
+      &:first-child {
+        background-color: #dc3545;
+      }
+
+      &:last-child {
+        background-color: #28a745;
+      }
+    }
+  }
+}

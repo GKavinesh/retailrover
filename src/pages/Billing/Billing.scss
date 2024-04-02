@@ -1,0 +1,83 @@
+/* Billing.scss */
+
+/* Customer Details */
+.customer-details {
+  margin-bottom: 20px;
+}
+
+.customer-details label {
+  margin-right: 10px;
+}
+
+.customer-details input {
+  margin-bottom: 10px;
+  padding: 5px;
+  width: 200px;
+}
+
+/* Billing Form */
+.billing-form input {
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.billing-form button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.billing-form button:hover {
+  background-color: #0056b3;
+}
+
+/* Product Table */
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.product-table th, .product-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.product-table th {
+  background-color: #f2f2f2;
+}
+
+.product-table td {
+  vertical-align: middle;
+}
+
+.product-table button {
+  padding: 5px 10px;
+  margin-right: 5px;
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.product-table button:hover {
+  background-color: #c82333;
+}
+
+/* Action Buttons */
+.action-buttons button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.action-buttons button:hover {
+  background-color: #218838;
+}
+

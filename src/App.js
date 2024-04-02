@@ -1,13 +1,13 @@
-import Home from "./pages/Dashboard/home.jsx";
-import Login from "./pages/Customers/Login.jsx";
-import List from "./pages/Billing/List.jsx";
-import Single from "./pages/Employees/Single.jsx";
-import New from "./pages/Suppliers/New.jsx";
+import React, { useContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { productInputs, userInputs } from "./formSource";
-import "./style/dark.scss";
-import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
+import Home from "./pages/Dashboard/home.jsx";
+import Customer from "./pages/Customers/Customer.jsx";
+import Billing from "./pages/Billing/Billing.jsx";
+import Employee from "./pages/Employees/Employee.jsx";
+import Supplier from "./pages/Suppliers/Supplier.jsx";
+import Inventory from "./pages/Inventory/Inventory.jsx";
+import "./style/dark.scss";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -18,23 +18,11 @@ function App() {
         <Routes>
           <Route path="/">
             <Route index element={<Home />} />
-            <Route path="login" element={<Login />} />
-            <Route path="users">
-              <Route index element={<List />} />
-              <Route path=":userId" element={<Single />} />
-              <Route
-                path="new"
-                element={<New inputs={userInputs} title="Add New User" />}
-              />
-            </Route>
-            <Route path="products">
-              <Route index element={<List />} />
-              <Route path=":productId" element={<Single />} />
-              <Route
-                path="new"
-                element={<New inputs={productInputs} title="Add New Product" />}
-              />
-            </Route>
+            <Route path="billing" element={<Billing />} />
+            <Route path="inventory" element={<Inventory />} />
+            <Route path="supplier" element={<Supplier />} />
+            <Route path="customer" element={<Customer />} />
+            <Route path="employee" element={<Employee />} />
           </Route>
         </Routes>
       </BrowserRouter>
