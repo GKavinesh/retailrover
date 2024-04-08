@@ -1,21 +1,33 @@
-.container {
-  text-align: center;
-  margin-top: 50px;
+
+
+.home {
+  display: flex;
+  flex-direction: row;
 }
 
-.form {
+.homeContainer {
+  flex: 1;
+  padding: 20px;
+}
+
+.home h2 {
+  margin-bottom: 20px;
+}
+
+.supplier-form {
   margin-bottom: 20px;
 }
 
 .supplier-table {
-  width: 70%;
-  margin: 0 auto;
+  width: 100%;
   border-collapse: collapse;
 }
 
-.supplier-table th, .supplier-table td {
+.supplier-table th,
+.supplier-table td {
   padding: 10px;
   border: 1px solid #ddd;
+  text-align: left;
 }
 
 .supplier-table th {
@@ -23,12 +35,41 @@
 }
 
 .supplier-table button {
+  cursor: pointer;
   padding: 5px 10px;
   margin-right: 5px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+}
+
+.supplier-table button:hover {
+  background-color: #0056b3;
+}
+
+.form-input {
+  margin-bottom: 10px;
+}
+
+.form-input input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.form-input button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
   cursor: pointer;
 }
 
-.supplier-table button:last-child {
-  margin-right: 0;
+.form-input button:hover {
+  background-color: #0056b3;
 }
+
 

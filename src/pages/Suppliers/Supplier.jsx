@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import "./Supplier.scss";
+import Sidebar from "../../components/sidebar/Sidebar";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Navbar from "../../components/navbar/Navbar";
 
 const SupplierTable = ({ suppliers, onDelete, onUpdate }) => {
   return (
@@ -19,8 +23,8 @@ const SupplierTable = ({ suppliers, onDelete, onUpdate }) => {
             <td>{supplier.email}</td>
             <td>{supplier.phone}</td>
             <td>
-              <button onClick={() => onDelete(index)}>Delete</button>
-              <button onClick={() => onUpdate(index)}>Update</button>
+              <button onClick={() => onDelete(supplier.id)}>Delete</button>
+              <button onClick={() => onUpdate(supplier.id)}>Update</button>
             </td>
           </tr>
         ))}
@@ -47,7 +51,7 @@ const SupplierForm = ({ onSubmit }) => {
       <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
       <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
       <input type="tel" placeholder="Phone" value={phone} onChange={(e) => setPhone(e.target.value)} required />
-      <button type="submit">Add Supplier</button>
+      <button type="Submit" class="btn btn-primary">Add</button>
     </form>
   );
 };
@@ -55,22 +59,48 @@ const SupplierForm = ({ onSubmit }) => {
 const SupplierUI = () => {
   const [suppliers, setSuppliers] = useState([]);
 
-  const handleAddSupplier = (supplier) => {
-    setSuppliers([...suppliers, supplier]);
+  useEffect(() => {
+    fetchSuppliers();
+  }, []);
+
+  const fetchSuppliers = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/api/suppliers');
+      setSuppliers(response.data);
+    } catch (error) {
+      console.error('Error fetching suppliers:', error);
+    }
   };
 
-  const handleDeleteSupplier = (index) => {
-    const updatedSuppliers = [...suppliers];
-    updatedSuppliers.splice(index, 1);
-    setSuppliers(updatedSuppliers);
+  const handleAddSupplier = async (supplier) => {
+    try {
+      const response = await axios.post('http://localhost:8080/api/suppliers', supplier);
+      setSuppliers([...suppliers, response.data]);
+    } catch (error) {
+      console.error('Error adding supplier:', error);
+    }
   };
 
-  const handleUpdateSupplier = (index) => {
+  const handleDeleteSupplier = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8080/api/suppliers/${id}`);
+      const updatedSuppliers = suppliers.filter(supplier => supplier.id !== id);
+      setSuppliers(updatedSuppliers);
+    } catch (error) {
+      console.error('Error deleting supplier:', error);
+    }
+  };
+
+  const handleUpdateSupplier = (id) => {
     // You can implement update functionality here
-    console.log("Update supplier with index", index);
+    console.log("Update supplier with id", id);
   };
 
   return (
+    <div className="home">
+      <Sidebar />
+      <div className="homeContainer">
+        <Navbar />
     <div>
       <h2>Supplier Management</h2>
       <SupplierForm onSubmit={handleAddSupplier} />
@@ -80,9 +110,10 @@ const SupplierUI = () => {
         onUpdate={handleUpdateSupplier}
       />
     </div>
+    </div>
+    </div>
   );
 };
 
 export default SupplierUI;
-
 

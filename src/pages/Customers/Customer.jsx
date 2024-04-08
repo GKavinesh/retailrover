@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import "./Customer.scss";
+import Sidebar from "../../components/sidebar/Sidebar";
+import Navbar from "../../components/navbar/Navbar";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const CustomerTable = ({ customers, onDelete, onUpdate }) => {
   return (
@@ -19,8 +23,8 @@ const CustomerTable = ({ customers, onDelete, onUpdate }) => {
             <td>{customer.email}</td>
             <td>{customer.phone}</td>
             <td>
-              <button onClick={() => onDelete(index)}>Delete</button>
-              <button onClick={() => onUpdate(index)}>Update</button>
+              <button onClick={() => onDelete(customer.id)}>Delete</button>
+              <button onClick={() => onUpdate(customer)}>Update</button>
             </td>
           </tr>
         ))}
@@ -47,7 +51,7 @@ const CustomerForm = ({ onSubmit }) => {
       <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
       <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
       <input type="tel" placeholder="Phone" value={phone} onChange={(e) => setPhone(e.target.value)} required />
-      <button type="submit">Add Customer</button>
+      <button type="button" class="btn btn-primary">Add</button>
     </form>
   );
 };
@@ -55,22 +59,55 @@ const CustomerForm = ({ onSubmit }) => {
 const CustomerUI = () => {
   const [customers, setCustomers] = useState([]);
 
-  const handleAddCustomer = (customer) => {
-    setCustomers([...customers, customer]);
+  useEffect(() => {
+    fetchCustomers();
+  }, []);
+
+  const fetchCustomers = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/api/customers');
+      setCustomers(response.data);
+    } catch (error) {
+      console.error('Error fetching customers:', error);
+    }
   };
 
-  const handleDeleteCustomer = (index) => {
-    const updatedCustomers = [...customers];
-    updatedCustomers.splice(index, 1);
-    setCustomers(updatedCustomers);
+  const handleAddCustomer = async (customer) => {
+    try {
+      const response = await axios.post('http://localhost:8080/api/customers', customer);
+      setCustomers([...customers, response.data]);
+    } catch (error) {
+      console.error('Error adding customer:', error);
+    }
   };
 
-  const handleUpdateCustomer = (index) => {
-    // You can implement update functionality here
-    console.log("Update customer with index", index);
+  const handleDeleteCustomer = async (customerId) => {
+    try {
+      await axios.delete(`http://localhost:8080/api/customers/${customerId}`);
+      const updatedCustomers = customers.filter(customer => customer.id !== customerId);
+      setCustomers(updatedCustomers);
+    } catch (error) {
+      console.error('Error deleting customer:', error);
+    }
+  };
+
+  const handleUpdateCustomer = async (updatedCustomer) => {
+    try {
+      await axios.put(`http://localhost:8080/api/customers/${updatedCustomer.id}`, updatedCustomer);
+      const updatedCustomers = customers.map(customer =>
+        customer.id === updatedCustomer.id ? updatedCustomer : customer
+      );
+      setCustomers(updatedCustomers);
+    } catch (error) {
+      console.error('Error updating customer:', error);
+    }
   };
 
   return (
+    <div className="home">
+      <Sidebar />
+      <div className="homeContainer">
+        <Navbar />
     <div>
       <h2>Customer Details</h2>
       <CustomerForm onSubmit={handleAddCustomer} />
@@ -80,7 +117,10 @@ const CustomerUI = () => {
         onUpdate={handleUpdateCustomer}
       />
     </div>
-  );
+    </div>
+    </div>
+      );
 };
 
 export default CustomerUI;
+

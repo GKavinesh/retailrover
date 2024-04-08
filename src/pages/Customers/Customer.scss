@@ -1,6 +1,10 @@
 /* Customer.scss */
 
-.customer-container {
+.home {
+  display: flex;
+
+  .homeContainer {
+    flex: 6;customer-container {
     margin: 20px;
   }
   
@@ -67,4 +71,6 @@
   .customer-table button:hover {
     background-color: #d32f2f;
   }
+}
+}
   

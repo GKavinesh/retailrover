@@ -1,6 +1,13 @@
 /* Billing.scss */
 
 /* Customer Details */
+
+.home {
+  display: flex;
+
+  .homeContainer {
+    flex: 6;
+
 .customer-details {
   margin-bottom: 20px;
 }
@@ -79,5 +86,8 @@
 
 .action-buttons button:hover {
   background-color: #218838;
+}
+
+  }
 }
 

@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import "./Billing.scss";
-
+import Sidebar from "../../components/sidebar/Sidebar";
+import Navbar from "../../components/navbar/Navbar";
+import 'bootstrap/dist/css/bootstrap.min.css';
 const ProductTable = ({ products, onDelete, onUpdate }) => {
   return (
     <table className="product-table">
@@ -54,7 +57,7 @@ const BillingForm = ({ onSubmit }) => {
       <input type="text" placeholder="Product Name" value={name} onChange={(e) => setName(e.target.value)} required />
       <input type="number" placeholder="Quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)} required />
       <input type="number" placeholder="Unit Price" value={unitPrice} onChange={(e) => setUnitPrice(e.target.value)} required />
-      <button type="submit">Add Product</button>
+      <button type="button" class="btn btn-primary">Add</button>
     </form>
   );
 };
@@ -64,17 +67,27 @@ const BillingUI = () => {
   const [customerName, setCustomerName] = useState('');
   const [customerEmail, setCustomerEmail] = useState('');
 
-  const handleAddProduct = (product) => {
-    setProducts([...products, product]);
+  const handleAddProduct = async (product) => {
+    try {
+      const response = await axios.post('http://localhost:8080/api/billings', product);
+      setProducts([...products, response.data]);
+    } catch (error) {
+      console.error('Error adding product:', error);
+    }
   };
 
-  const handleDeleteProduct = (index) => {
-    const updatedProducts = [...products];
-    updatedProducts.splice(index, 1);
-    setProducts(updatedProducts);
+  const handleDeleteProduct = async (index) => {
+    const productId = products[index].id;
+    try {
+      await axios.delete(`http://localhost:8080/api/billings/${productId}`);
+      const updatedProducts = products.filter((_, i) => i !== index);
+      setProducts(updatedProducts);
+    } catch (error) {
+      console.error('Error deleting product:', error);
+    }
   };
 
-  const handleUpdateProduct = (index) => {
+  const handleUpdateProduct = async (index) => {
     // You can implement update functionality here
     console.log("Update product with index", index);
   };
@@ -95,6 +108,10 @@ const BillingUI = () => {
   };
 
   return (
+    <div className="home">
+      <Sidebar />
+      <div className="homeContainer">
+        <Navbar />
     <div>
       <h2>Billing Details</h2>
       <div>
@@ -117,7 +134,10 @@ const BillingUI = () => {
         <button onClick={handleConfirmTransaction}>Confirm Transaction</button>
       </div>
     </div>
+    </div>
+    </div>
   );
 };
 
 export default BillingUI;
+
