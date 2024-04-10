@@ -29,7 +29,9 @@
 }
 
 .billing-form button {
-  padding: 5px 10px;
+ 
+  padding: 10px 20px;
+  margin-right: 10px;
   background-color: #007bff;
   color: #fff;
   border: none;
@@ -38,6 +40,9 @@
 
 .billing-form button:hover {
   background-color: #0056b3;
+  justify-content: space-between;
+  padding: 10px 20px;
+  margin-right: 10px;
 }
 
 /* Product Table */

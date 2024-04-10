@@ -57,7 +57,9 @@ const BillingForm = ({ onSubmit }) => {
       <input type="text" placeholder="Product Name" value={name} onChange={(e) => setName(e.target.value)} required />
       <input type="number" placeholder="Quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)} required />
       <input type="number" placeholder="Unit Price" value={unitPrice} onChange={(e) => setUnitPrice(e.target.value)} required />
-      <button type="button" class="btn btn-primary">Add</button>
+      <button type="button" class=" btn-primary">Add</button>
+      <button type="button" class=" btn-danger">Delete</button>
+      <button type="button" class=" btn-warning">update</button>
     </form>
   );
 };
