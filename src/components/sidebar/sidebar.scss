@@ -1,25 +1,31 @@
 .sidebar {
   flex: 1;
-  border-right: 0.5px solid rgb(230, 227, 227);
+  border-right: 4px solid #addffb;
+  border-left: 4px solid #addffb;
+  border: 4px solid #addffb;
   min-height: 100vh;
   background-color: white;
+  border-top-left-radius: 20px;
 
   .top {
     height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center horizontally */
+  text-align: center; /* Center text horizontally */
 
-    .logo {
-      font-size: 20px;
+    span {
+      margin-top: 10px;
+      font-size: 40px;
       font-weight: bold;
-      color: #000000;
+      color: #81d1ff;
     }
   }
 
   hr {
     height: 0;
-    border: 0.5px solid rgb(230, 227, 227);
+    border: 2px solid #81d1ff;
   }
 
   .center {
@@ -31,9 +37,9 @@
       padding: 0;
 
       .title {
-        font-size: 10px;
+        font-size: 20px;
         font-weight: bold;
-        color: #999;
+        color: #000000;
         margin-top: 15px;
         margin-bottom: 5px;
       }
@@ -41,52 +47,56 @@
       li {
         display: flex;
         align-items: center;
-        padding: 5px;
+        padding: 10px;
+        margin-top: 1rem;
         cursor: pointer;
 
         &:hover {
-          background-color: #ece8ff;
+          background-color: #addffb;
         }
 
         .icon {
-          font-size: 18px;
-          color: #000000;
+          font-size: 40px;
+          color: #00a2ff;
         }
 
-        span{
-            font-size: 13px;
-            font-weight: 600;
-            color: #888;
-            margin-left: 10px;
+        span {
+          font-size: 24px;
+          font-weight: 600;
+          color: black;
+          padding: 10px;
+          margin-left: 10px;
         }
       }
     }
   }
 
-  .bottom{
-      display: flex;
-      align-items: center;
-      margin: 10px;
-      margin-top: 35rem;
-      margin-left: 13rem;
+  .bottom {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    margin-top: 35rem; /* Adjust this as needed */
+    margin-left: 13rem; /* Adjust this as needed */
 
-      .colorOption{
-          width: 20px;
-          height: 20px;
-          border-radius: 5px;
-          border: 1px solid #7451f8;
-          cursor: pointer;
-          margin: 5px;
+    .colorOption {
+      width: 20px;
+      height: 20px;
+      border-radius: 5px;
+      border: 1px solid #7451f8;
+      cursor: pointer;
+      margin: 5px;
+    }
 
-          &:nth-child(1){
-              background-color: whitesmoke;
-          }
-          &:nth-child(2){
-              background-color: #333;
-          }
-          &:nth-child(3){
-              background-color: darkblue;
-          }
-      }
+    .colorOption:nth-child(1) {
+      background-color: whitesmoke;
+    }
+
+    .colorOption:nth-child(2) {
+      background-color: #333;
+    }
+
+    .colorOption:nth-child(3) {
+      background-color: darkblue;
+    }
   }
 }

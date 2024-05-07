@@ -1,117 +1,119 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import "./Employee.scss";
+import PostEmployee from './postEmployee';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
+import { useNavigate } from "react-router-dom";
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const Employee = () => {
   const [employees, setEmployees] = useState([]);
-  const [fName, setFName] = useState('');
-  const [lName, setLName] = useState('');
-  const [email, setEmail] = useState('');
-  const [salary, setSalary] = useState('');
+  const navigate = useNavigate();
+
+  const fetchEmployees = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/api/employee");
+      if (!response.ok) {
+        throw new Error('Failed to fetch data');
+      }
+      const data = await response.json();
+      setEmployees(Array.isArray(data) ? data : []);
+    } catch (error) {
+      console.error("Error fetching employees:", error.message);
+      setEmployees([]); // Reset employees to an empty array on error
+    }
+  }
 
   useEffect(() => {
     fetchEmployees();
   }, []);
 
-  const fetchEmployees = async () => {
+  const handleDelete = async (employeeId) => {
     try {
-      const response = await axios.get('http://localhost:8080/api/employees');
-      setEmployees(response.data);
-    } catch (error) {
-      console.error('Error fetching employees:', error);
-    }
-  };
+      const response = await fetch(`http://localhost:8080/api/employee/${employeeId}`, {
+        method: 'DELETE'
+      });
 
-  const handleAddEmployee = async () => {
-    const newEmployee = { fName, lName, email, salary };
-    try {
-      const response = await axios.post('http://localhost:8080/api/employees', newEmployee);
-      setEmployees([...employees, response.data]);
-    } catch (error) {
-      console.error('Error adding employee:', error);
-    }
-  };
+      if (response.ok) {
+        setEmployees((prevEmployees) =>
+          prevEmployees.filter((employee) => employee.id !== employeeId)
+        );
+      } else {
+        throw new Error('Failed to delete employee');
+      }
 
-  const handleDeleteEmployee = async (employeeId) => {
-    try {
-      await axios.delete(`http://localhost:8080/api/employees/${employeeId}`);
-      const updatedEmployees = employees.filter(employee => employee.id !== employeeId);
-      setEmployees(updatedEmployees);
+      console.log(`Employee with ID ${employeeId} deleted successfully`);
     } catch (error) {
-      console.error('Error deleting employee:', error);
+      console.error("Error deleting employee:", error.message);
     }
-  };
+  }
 
-  const handleUpdateEmployee = async (updatedEmployee) => {
-    try {
-      await axios.put(`http://localhost:8080/api/employees/${updatedEmployee.id}`, updatedEmployee);
-      const updatedEmployees = employees.map(employee =>
-        employee.id === updatedEmployee.id ? updatedEmployee : employee
-      );
-      setEmployees(updatedEmployees);
-    } catch (error) {
-      console.error('Error updating employee:', error);
-    }
-  };
+  const handleUpdate = (employeeId) => {
+    navigate(`/employee/${employeeId}`);
+  }
 
   return (
     <div className="home">
       <Sidebar />
       <div className="homeContainer">
         <Navbar />
-        <div className="employee-container">
-          <h2>Employee Management</h2>
-          <form onSubmit={handleAddEmployee}>
-            <input type="text" placeholder="First Name" value={fName} onChange={(e) => setFName(e.target.value)} required />
-            <input type="text" placeholder="Last Name" value={lName} onChange={(e) => setLName(e.target.value)} required />
-            <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-            <input type="number" placeholder="Salary" value={salary} onChange={(e) => setSalary(e.target.value)} required />
-            <button type="Add employee" class="btn btn-primary">Add</button>
-          </form>
-          <EmployeeTable
-            employees={employees}
-            onDelete={handleDeleteEmployee}
-            onUpdate={handleUpdateEmployee}
-          />
-        </div>
+        <Container className="mt-5">
+          <Row>
+            <Col>
+              <h1 className="text-center">Our Employees</h1>
+              <Button variant="primary" onClick={fetchEmployees}>Refresh Table</Button>
+              <Table striped bordered hover responsive className="mt-3">
+                <thead>
+                  <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Salary</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {employees.map((employee) => (
+                    <tr key={employee.id}>
+                      <td>{employee.firstName}</td>
+                      <td>{employee.lastName}</td>
+                      <td>{employee.salary}</td>
+                      <td className="action-buttons">
+                        <Button
+                          variant="outline-secondary"
+                          onClick={() => handleUpdate(employee.id)}
+                          style={{ backgroundColor: '#28a745', borderColor: '#28a745' }} // Green background and border
+                        >
+                          <BorderColorIcon />
+                        </Button>
+                        <Button
+                          variant="outline-danger"
+                          onClick={() => handleDelete(employee.id)}
+                          style={{ backgroundColor: '#dc3545', borderColor: '#dc3545' }} // Red background and border
+                        >
+                          <DeleteIcon />
+                        </Button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </Col>
+          </Row>
+        </Container>
+        <PostEmployee />
       </div>
     </div>
   );
 };
 
-const EmployeeTable = ({ employees, onDelete, onUpdate }) => {
-  return (
-    <table className="employee-table">
-      <thead>
-        <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Email</th>
-          <th>Salary</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {employees.map((employee, index) => (
-          <tr key={index}>
-            <td>{employee.fName}</td>
-            <td>{employee.lName}</td>
-            <td>{employee.email}</td>
-            <td>{employee.salary}</td>
-            <td>
-              <button onClick={() => onDelete(employee.id)}>Delete</button>
-              <button onClick={() => onUpdate(employee)}>Update</button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-};
-
 export default Employee;
+
+
 

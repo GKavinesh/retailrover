@@ -1,76 +1,73 @@
-/* Customer.scss */
+// Define common colors as variables
+$background-light-gray: #f9f9f9;
+$background-white: #fff;
+$background-orange: #000000;
+$background-red: #dc3545;
+$themed-color: #addffb; // New themed color
+$background-green: #28a745; // New green color
 
-.home {
-  display: flex;
+$font-color-white: #fff;
+$border-color-light-gray: #ddd;
+$box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
-  .homeContainer {
-    flex: 6;customer-container {
-    margin: 20px;
+// Mixin for button styles
+
+
+// Body styles
+body {
+  background-color: $background-light-gray;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+// Container styles
+.container {
+  margin: 50px auto;
+  max-width: 2000px;
+  padding: 030px;
+  background-color: $background-white;
+  border-radius: 8px;
+  box-shadow: $box-shadow;
+}
+
+
+
+// Table styles
+.table {
+  width: 100%; // Adjust width to 100%
+  border-collapse: collapse;
+
+  thead {
+    th {
+      background-color: $themed-color; // Using themed color here
+      color: $font-color-white;
+      padding: 12px 16px;
+      text-align: left;
+    }
   }
-  
-  .customer-form {
-    margin-bottom: 20px;
-  }
-  
-  .customer-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-  }
-  
-  .customer-table th,
-  .customer-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  .customer-table th {
-    background-color: #f2f2f2;
-  }
-  
-  .customer-table tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
-  .customer-table tbody tr:hover {
-    background-color: #ddd;
-  }
-  
-  .customer-form input {
-    margin-right: 10px;
-    margin-bottom: 10px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .customer-form button {
-    padding: 8px 16px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .customer-form button:hover {
-    background-color: #45a049;
-  }
-  
-  .customer-table button {
-    padding: 6px 12px;
-    background-color: #f44336;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-right: 5px;
-  }
-  
-  .customer-table button:hover {
-    background-color: #d32f2f;
+
+  tbody {
+    td {
+      padding: 10px 16px;
+      border-bottom: 1px solid $border-color-light-gray;
+    }
   }
 }
+
+// Action buttons container styles
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    &.btn-outline-secondary {
+      background-color: #28a745;
+    }
+
+    &.btn-outline-danger {
+      background-color: red;
+    }
+  }
 }
   

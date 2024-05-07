@@ -1,111 +1,72 @@
-.inventory-table {
-  width: 100%;
+// Define common colors as variables
+$background-light-gray: #f9f9f9;
+$background-white: #fff;
+$background-orange: #000000;
+$background-red: #dc3545;
+$themed-color: #addffb; // New themed color
+$background-green: #28a745; // New green color
+
+$font-color-white: #fff;
+$border-color-light-gray: #ddd;
+$box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+// Mixin for button styles
+
+
+// Body styles
+body {
+  background-color: $background-light-gray;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+// Container styles
+.container {
+  margin: 50px auto;
+  max-width: 2000px;
+  padding: 030px;
+  background-color: $background-white;
+  border-radius: 8px;
+  box-shadow: $box-shadow;
+}
+
+
+
+// Table styles
+.table {
+  width: 100%; // Adjust width to 100%
   border-collapse: collapse;
-  margin-bottom: 20px;
-}
 
-.inventory-table th,
-.inventory-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
-
-.inventory-table th {
-  background-color: #f2f2f2;
-  text-align: left;
-}
-
-.inventory-table tbody tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-.inventory-table tbody tr:hover {
-  background-color: #ddd;
-}
-
-.product-form input[type="text"],
-.product-form input[type="number"],
-.product-form button[type="submit"] {
-  margin-bottom: 10px;
-}
-
-.product-form input[type="text"],
-.product-form input[type="number"] {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-}
-
-.product-form button[type="submit"] {
-  background-color: #4caf50;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.product-form button[type="submit"]:hover {
-  background-color: #45a049;
-}
-
-/* You can add more styles as needed */
-
-.home {
-  display: flex;
-
-  .homeContainer {
-    flex: 6;
-
-    .inventory-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
-    }
-    
-    .inventory-table th,
-    .inventory-table td {
-      border: 1px solid #ddd;
-      padding: 8px;
-    }
-    
-    .inventory-table th {
-      background-color: #f2f2f2;
+  thead {
+    th {
+      background-color: $themed-color; // Using themed color here
+      color: $font-color-white;
+      padding: 12px 16px;
       text-align: left;
     }
-    
-    .inventory-table tbody tr:nth-child(even) {
-      background-color: #f2f2f2;
+  }
+
+  tbody {
+    td {
+      padding: 10px 16px;
+      border-bottom: 1px solid $border-color-light-gray;
     }
-    
-    .inventory-table tbody tr:hover {
-      background-color: #ddd;
+  }
+}
+
+// Action buttons container styles
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    &.btn-outline-secondary {
+      background-color: #28a745;
     }
-    
-    .product-form input[type="text"],
-    .product-form input[type="number"],
-    .product-form button[type="submit"] {
-      margin-bottom: 10px;
-    }
-    
-    .product-form input[type="text"],
-    .product-form input[type="number"] {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 10px;
-    }
-    
-    .product-form button[type="submit"] {
-      background-color: #4caf50;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    
-    .product-form button[type="submit"]:hover {
-      background-color: #45a049;
+
+    &.btn-outline-danger {
+      background-color: red;
     }
   }
 }

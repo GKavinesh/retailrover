@@ -1,126 +1,111 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import "./Customer.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
+import "./Customer.scss";
+import PostCustomer from './postCustomer';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
+import { useNavigate } from "react-router-dom";
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-const CustomerTable = ({ customers, onDelete, onUpdate }) => {
-  return (
-    <table className="customer-table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Phone</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {customers.map((customer, index) => (
-          <tr key={index}>
-            <td>{customer.name}</td>
-            <td>{customer.email}</td>
-            <td>{customer.phone}</td>
-            <td>
-              <button onClick={() => onDelete(customer.id)}>Delete</button>
-              <button onClick={() => onUpdate(customer)}>Update</button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-};
-
-const CustomerForm = ({ onSubmit }) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit({ name, email, phone });
-    setName('');
-    setEmail('');
-    setPhone('');
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
-      <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-      <input type="tel" placeholder="Phone" value={phone} onChange={(e) => setPhone(e.target.value)} required />
-      <button type="button" class="btn btn-primary">Add</button>
-    </form>
-  );
-};
-
-const CustomerUI = () => {
+const Customer = () => {
   const [customers, setCustomers] = useState([]);
+  const navigate = useNavigate();
+
+  const fetchCustomers = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/api/customer");
+      const data = await response.json();
+      setCustomers(data);
+    } catch (error) {
+      console.error("Error fetching customers:", error.message);
+    }
+  }
 
   useEffect(() => {
     fetchCustomers();
   }, []);
 
-  const fetchCustomers = async () => {
+  const handleDelete = async (customerId) => {
     try {
-      const response = await axios.get('http://localhost:8080/api/customers');
-      setCustomers(response.data);
-    } catch (error) {
-      console.error('Error fetching customers:', error);
-    }
-  };
+      const response = await fetch(`http://localhost:8080/api/customer/${customerId}`, {
+        method: 'DELETE'
+      });
 
-  const handleAddCustomer = async (customer) => {
-    try {
-      const response = await axios.post('http://localhost:8080/api/customers', customer);
-      setCustomers([...customers, response.data]);
-    } catch (error) {
-      console.error('Error adding customer:', error);
-    }
-  };
+      if (response.ok) {
+        setCustomers((prevCustomers) =>
+          prevCustomers.filter((customer) => customer.id !== customerId)
+        );
+      }
 
-  const handleDeleteCustomer = async (customerId) => {
-    try {
-      await axios.delete(`http://localhost:8080/api/customers/${customerId}`);
-      const updatedCustomers = customers.filter(customer => customer.id !== customerId);
-      setCustomers(updatedCustomers);
+      console.log(`Customer with ID ${customerId} deleted successfully`);
     } catch (error) {
-      console.error('Error deleting customer:', error);
+      console.error("Error deleting customer:", error.message);
     }
-  };
+  }
 
-  const handleUpdateCustomer = async (updatedCustomer) => {
-    try {
-      await axios.put(`http://localhost:8080/api/customers/${updatedCustomer.id}`, updatedCustomer);
-      const updatedCustomers = customers.map(customer =>
-        customer.id === updatedCustomer.id ? updatedCustomer : customer
-      );
-      setCustomers(updatedCustomers);
-    } catch (error) {
-      console.error('Error updating customer:', error);
-    }
-  };
+  const handleUpdate = (customerId) => {
+    navigate(`/customer/${customerId}`);
+  }
 
-  return (
+ return (
     <div className="home">
       <Sidebar />
       <div className="homeContainer">
         <Navbar />
-    <div>
-      <h2>Customer Details</h2>
-      <CustomerForm onSubmit={handleAddCustomer} />
-      <CustomerTable
-        customers={customers}
-        onDelete={handleDeleteCustomer}
-        onUpdate={handleUpdateCustomer}
-      />
+        <Container className="mt-5">
+          <Row>
+            <Col>
+              <h1 className="text-center">Our Customers</h1>
+              <Button variant="primary" onClick={fetchCustomers}>Refresh Table</Button>
+              <Table striped bordered hover responsive className="mt-3">
+                <thead>
+                  <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {customers.map((customer) => (
+                    <tr key={customer.id}>
+                      <td>{customer.firstName}</td>
+                      <td>{customer.lastName}</td>
+                      <td>{customer.email}</td>
+                      <td className="action-buttons">
+                      <Button
+                      variant="outline-secondary"
+                      onClick={() => handleUpdate(customer.id)}
+                      style={{ backgroundColor: '#28a745', borderColor: '#28a745' }} // Green background and border
+                      >
+                        <BorderColorIcon />
+                        </Button>
+                        <Button
+                        variant="outline-danger" 
+                        onClick={() => handleDelete(customer.id)}
+                        style={{ backgroundColor: '#dc3545', borderColor: '#dc3545' }} // Red background and border
+                        >
+                          <DeleteIcon />
+                          </Button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </Col>
+          </Row>
+        </Container>
+        <PostCustomer />
+      </div>
     </div>
-    </div>
-    </div>
-      );
+  );
 };
 
-export default CustomerUI;
+export default Customer;
 

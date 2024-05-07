@@ -1,119 +1,113 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import "./Supplier.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from "../../components/navbar/Navbar";
+import "./Supplier.scss";
+import PostSupplier from './postSupplier.jsx';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
+import { useNavigate } from "react-router-dom";
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-const SupplierTable = ({ suppliers, onDelete, onUpdate }) => {
-  return (
-    <table className="supplier-table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Phone</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {suppliers.map((supplier, index) => (
-          <tr key={index}>
-            <td>{supplier.name}</td>
-            <td>{supplier.email}</td>
-            <td>{supplier.phone}</td>
-            <td>
-              <button onClick={() => onDelete(supplier.id)}>Delete</button>
-              <button onClick={() => onUpdate(supplier.id)}>Update</button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-};
-
-const SupplierForm = ({ onSubmit }) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit({ name, email, phone });
-    setName('');
-    setEmail('');
-    setPhone('');
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
-      <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-      <input type="tel" placeholder="Phone" value={phone} onChange={(e) => setPhone(e.target.value)} required />
-      <button type="Submit" class="btn btn-primary">Add</button>
-    </form>
-  );
-};
-
-const SupplierUI = () => {
+const Supplier = () => {
   const [suppliers, setSuppliers] = useState([]);
+  const navigate = useNavigate();
+
+  const fetchSuppliers = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/api/supplier");
+      const data = await response.json();
+      setSuppliers(data);
+    } catch (error) {
+      console.error("Error fetching suppliers:", error.message);
+    }
+  }
 
   useEffect(() => {
     fetchSuppliers();
   }, []);
 
-  const fetchSuppliers = async () => {
+  const handleDelete = async (supplierId) => {
     try {
-      const response = await axios.get('http://localhost:8080/api/suppliers');
-      setSuppliers(response.data);
+      const response = await fetch(`http://localhost:8080/api/supplier/${supplierId}`, {
+        method: 'DELETE'
+      });
+
+      if (response.ok) {
+        setSuppliers((prevSuppliers) =>
+          prevSuppliers.filter((supplier) => supplier.id !== supplierId)
+        );
+      }
+
+      console.log(`Supplier with ID ${supplierId} deleted successfully`);
     } catch (error) {
-      console.error('Error fetching suppliers:', error);
+      console.error("Error deleting supplier:", error.message);
     }
-  };
+  }
 
-  const handleAddSupplier = async (supplier) => {
-    try {
-      const response = await axios.post('http://localhost:8080/api/suppliers', supplier);
-      setSuppliers([...suppliers, response.data]);
-    } catch (error) {
-      console.error('Error adding supplier:', error);
-    }
-  };
+  const handleUpdate = (supplierId) => {
+    navigate(`/supplier/${supplierId}`);
+  }
 
-  const handleDeleteSupplier = async (id) => {
-    try {
-      await axios.delete(`http://localhost:8080/api/suppliers/${id}`);
-      const updatedSuppliers = suppliers.filter(supplier => supplier.id !== id);
-      setSuppliers(updatedSuppliers);
-    } catch (error) {
-      console.error('Error deleting supplier:', error);
-    }
-  };
-
-  const handleUpdateSupplier = (id) => {
-    // You can implement update functionality here
-    console.log("Update supplier with id", id);
-  };
-
-  return (
+ return (
     <div className="home">
       <Sidebar />
       <div className="homeContainer">
         <Navbar />
-    <div>
-      <h2>Supplier Management</h2>
-      <SupplierForm onSubmit={handleAddSupplier} />
-      <SupplierTable
-        suppliers={suppliers}
-        onDelete={handleDeleteSupplier}
-        onUpdate={handleUpdateSupplier}
-      />
-    </div>
-    </div>
+        <Container className="mt-5">
+          <Row>
+            <Col>
+              <h1 className="text-center">Our Suppliers</h1>
+              <Button variant="primary" onClick={fetchSuppliers}>Refresh Table</Button>
+              <Table striped bordered hover responsive className="mt-3">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Product</th>
+                    <th>Address</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {suppliers.map((supplier) => (
+                    <tr key={supplier.id}>
+                      <td>{supplier.supplier_name}</td>
+                      <td>{supplier.product_name}</td>
+                      <td>{supplier.address}</td>
+                      <td>{supplier.email}</td>
+                      <td className="action-buttons">
+                      <Button
+                      variant="outline-secondary"
+                      onClick={() => handleUpdate(supplier.id)}
+                      style={{ backgroundColor: '#28a745', borderColor: '#28a745' }} // Green background and border
+                      >
+                        <BorderColorIcon />
+                        </Button>
+                        <Button
+                        variant="outline-danger" 
+                        onClick={() => handleDelete(supplier.id)}
+                        style={{ backgroundColor: '#dc3545', borderColor: '#dc3545' }} // Red background and border
+                        >
+                          <DeleteIcon />
+                          </Button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </Col>
+          </Row>
+        </Container>
+        <PostSupplier />
+      </div>
     </div>
   );
 };
 
-export default SupplierUI;
+export default Supplier;
 

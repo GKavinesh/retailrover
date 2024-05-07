@@ -1,75 +1,74 @@
+// Define common colors as variables
+$background-light-gray: #f9f9f9;
+$background-white: #fff;
+$background-orange: #000000;
+$background-red: #dc3545;
+$themed-color: #addffb; // New themed color
+$background-green: #28a745; // New green color
+
+$font-color-white: #fff;
+$border-color-light-gray: #ddd;
+$box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+// Mixin for button styles
 
 
-.home {
-  display: flex;
-  flex-direction: row;
+// Body styles
+body {
+  background-color: $background-light-gray;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-.homeContainer {
-  flex: 1;
-  padding: 20px;
+// Container styles
+.container {
+  margin: 50px auto;
+  max-width: 2000px;
+  padding: 030px;
+  background-color: $background-white;
+  border-radius: 8px;
+  box-shadow: $box-shadow;
 }
 
-.home h2 {
-  margin-bottom: 20px;
-}
 
-.supplier-form {
-  margin-bottom: 20px;
-}
 
-.supplier-table {
-  width: 100%;
+// Table styles
+.table {
+  width: 100%; // Adjust width to 100%
   border-collapse: collapse;
+
+  thead {
+    th {
+      background-color: $themed-color; // Using themed color here
+      color: $font-color-white;
+      padding: 12px 16px;
+      text-align: left;
+    }
+  }
+
+  tbody {
+    td {
+      padding: 10px 16px;
+      border-bottom: 1px solid $border-color-light-gray;
+    }
+  }
 }
 
-.supplier-table th,
-.supplier-table td {
-  padding: 10px;
-  border: 1px solid #ddd;
-  text-align: left;
-}
+// Action buttons container styles
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
 
-.supplier-table th {
-  background-color: #f2f2f2;
-}
+  button {
+    &.btn-outline-secondary {
+      background-color: #28a745;
+    }
 
-.supplier-table button {
-  cursor: pointer;
-  padding: 5px 10px;
-  margin-right: 5px;
-  border: none;
-  background-color: #007bff;
-  color: #fff;
-}
-
-.supplier-table button:hover {
-  background-color: #0056b3;
-}
-
-.form-input {
-  margin-bottom: 10px;
-}
-
-.form-input input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
-.form-input button {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  background-color: #007bff;
-  color: #fff;
-  cursor: pointer;
-}
-
-.form-input button:hover {
-  background-color: #0056b3;
+    &.btn-outline-danger {
+      background-color: red;
+    }
+  }
 }
 
 

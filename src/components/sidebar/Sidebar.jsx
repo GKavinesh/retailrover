@@ -5,9 +5,7 @@ import StoreIcon from "@mui/icons-material/Store";
 import BadgeIcon from '@mui/icons-material/Badge';
 import GroupIcon from '@mui/icons-material/Group';
 import PersonIcon from '@mui/icons-material/Person';
-
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
@@ -18,7 +16,7 @@ const Sidebar = () => {
     <div className="sidebar">
       <div className="top">
         <Link to="/" style={{ textDecoration: "none" }}>
-          <span className="logo">MavenTek</span>
+          <span >MavenTek</span>
         </Link>
       </div>
       <hr />
@@ -53,18 +51,29 @@ const Sidebar = () => {
             <GroupIcon className="icon" />
             <span>Suppliers</span>
           </li>
+
           </Link>
           <Link to = "/customer" style={{ textDecoration: "none" }}>
           <li>
             <PersonIcon className="icon" />
             <span>Customers</span>
           </li>
+
           </Link>
           <Link to = "/employee" style={{ textDecoration: "none" }}>
           <li>
             <BadgeIcon className="icon" />
             <span>Employees</span>
           </li>
+          </Link>
+
+          <p className="title">RESOURCES</p>
+          <Link to = "/employee" style={{ textDecoration: "none" }}>
+          <li>
+            <BadgeIcon className="icon" />
+            <span>Calendar</span>
+          </li>
+
           </Link>
           <p className="title">USER</p>
           <Link style={{ textDecoration: "none" }}>
@@ -74,16 +83,6 @@ const Sidebar = () => {
           </li>
           </Link>
         </ul>
-      </div>
-      <div className="bottom">
-        <div
-          className="colorOption"
-          onClick={() => dispatch({ type: "LIGHT" })}
-        ></div>
-        <div
-          className="colorOption"
-          onClick={() => dispatch({ type: "DARK" })}
-        ></div>
       </div>
     </div>
   );
