@@ -6,6 +6,8 @@ import BadgeIcon from '@mui/icons-material/Badge';
 import GroupIcon from '@mui/icons-material/Group';
 import PersonIcon from '@mui/icons-material/Person';
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
@@ -15,21 +17,20 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="top">
-        <Link to="/" style={{ textDecoration: "none" }}>
+        <Link to="/home" style={{ textDecoration: "none" }}>
           <span >MavenTek</span>
         </Link>
       </div>
-      <hr />
+      <hr/>
       <div className="center">
         <ul>
           <p className="title">MAIN</p>
-          <Link to="/" style={{ textDecoration: "none" }}>
+          <Link to="/home" style={{ textDecoration: "none" }}>
           <li>
             <DashboardIcon className="icon" />
             <span>Dashboard</span>
           </li>
           </Link>
-          <p className="title">LISTS</p>
           <Link to="/billing" style={{ textDecoration: "none" }}>
             <li>
               <PaidIcon className="icon" />
@@ -68,15 +69,20 @@ const Sidebar = () => {
           </Link>
 
           <p className="title">RESOURCES</p>
-          <Link to = "/employee" style={{ textDecoration: "none" }}>
+          <Link to="/calendar" style={{ textDecoration: "none" }}>
+            <li>
+              <CalendarMonthIcon className="icon" />
+              <span>Calendar</span>
+              </li>
+            </Link>
+          <Link to = "/status" style={{ textDecoration: "none" }}>
           <li>
-            <BadgeIcon className="icon" />
-            <span>Calendar</span>
+            <AdminPanelSettingsIcon className="icon" />
+            <span>Admin Login History</span>
           </li>
-
           </Link>
           <p className="title">USER</p>
-          <Link style={{ textDecoration: "none" }}>
+          <Link to = "/" style={{ textDecoration: "none" }}>
           <li>
             <ExitToAppIcon className="icon" />
             <span>Logout</span>

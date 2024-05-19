@@ -1,17 +1,21 @@
 .featured {
   flex: 2;
   -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
-  box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+  box-shadow: 2px 4px 10px 1px #44240d;
   padding: 10px;
+  max-width: 600px;
+  height: 450px;
+  margin-left: 3rem;
+  margin-right: 3rem;
 
   .top {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: gray;
+    color: black;
 
     .title {
-      font-size: 16px;
+      font-size: 20px;
       font-weight: 500;
     }
   }
@@ -27,11 +31,12 @@
     .featuredChart {
       width: 100px;
       height: 100px;
+      color: #44240d;
     }
 
     .title {
       font-weight: 500;
-      color: gray;
+      color: #44240d;
     }
 
     .amount {
@@ -40,8 +45,8 @@
 
     .desc {
       font-weight: 300;
-      font-size: 12px;
-      color: gray;
+      font-size: 16px;
+      color: #44240d;
       text-align: center;
     }
 
@@ -56,7 +61,7 @@
 
         .itemTitle {
           font-size: 14px;
-          color: gray;
+          color: black;
         }
 
         .itemResult {

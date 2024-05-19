@@ -1,14 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Briem+Hand:wght@100..900&display=swap');
+
 .sidebar {
   flex: 1;
-  border-right: 4px solid #addffb;
-  border-left: 4px solid #addffb;
-  border: 4px solid #addffb;
-  min-height: 100vh;
-  background-color: white;
-  border-top-left-radius: 20px;
+  height: auto;
+  background-color: #9f8c6b;
+  margin-top: 1rem;
+  margin-left: 0.5rem;
+  border-radius: 10px;
+  border: 3px solid #44240d;
 
   .top {
-    height: 50px;
+    height: 35px;
     margin-top: 20px;
   display: flex;
   align-items: center;
@@ -17,16 +19,13 @@
 
     span {
       margin-top: 10px;
-      font-size: 40px;
+      font-family: "Briem Hand", cursive;
+      font-size: 30px;
       font-weight: bold;
-      color: #81d1ff;
+      color: #44240d;
     }
   }
 
-  hr {
-    height: 0;
-    border: 2px solid #81d1ff;
-  }
 
   .center {
     padding-left: 10px;
@@ -37,9 +36,9 @@
       padding: 0;
 
       .title {
-        font-size: 20px;
+        font-size: 15px;
         font-weight: bold;
-        color: #000000;
+        color: #44240d;
         margin-top: 15px;
         margin-bottom: 5px;
       }
@@ -52,18 +51,18 @@
         cursor: pointer;
 
         &:hover {
-          background-color: #addffb;
+          background-color: #00000021;
         }
 
         .icon {
-          font-size: 40px;
-          color: #00a2ff;
+          font-size: 30px;
+          color: #44240d;
         }
 
         span {
-          font-size: 24px;
+          font-size: 20px;
           font-weight: 600;
-          color: black;
+          color: #44240d;
           padding: 10px;
           margin-left: 10px;
         }

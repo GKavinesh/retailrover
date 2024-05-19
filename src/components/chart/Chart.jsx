@@ -1,5 +1,6 @@
 import "./chart.scss";
-import Image from "../images/ganesha food.png";
+import Image from "../images/ganesha.png";
+
 const Chart = ({ aspect, title }) => {
   return (
     <div className="chart">

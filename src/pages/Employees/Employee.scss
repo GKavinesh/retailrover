@@ -1,3 +1,4 @@
+
 // Define common colors as variables
 $background-light-gray: #f9f9f9;
 $background-white: #fff;
@@ -62,16 +63,13 @@ body {
 
   button {
     &.btn-outline-secondary {
-      background-color: #28a745;
+      background-color: #28a74600;
     }
 
     &.btn-outline-danger {
-      background-color: red;
+      background-color: rgba(255, 0, 0, 0);
     }
   }
 }
-
-
-  
 
 

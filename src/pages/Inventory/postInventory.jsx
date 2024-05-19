@@ -81,9 +81,10 @@ const PostInventory = () => {
             />
           </Form.Group>
 
-          <Button variant='primary' type='submit' className='w-100'>
+          <Button variant='contained' style={{ backgroundColor: '#44240d', color: 'white' }} type='submit' className='w-100'>
             Add Product
-          </Button>
+            </Button>
+
         </Form>
       </div>
       {showPopup && (

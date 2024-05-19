@@ -23,12 +23,30 @@ body {
 
 // Container styles
 .container {
+  margin-left: -4rem;
   margin: 50px auto;
-  max-width: 2000px;
+  max-width: 2500px;
   padding: 030px;
-  background-color: $background-white;
+  background-color: #877c78;
   border-radius: 8px;
   box-shadow: $box-shadow;
+}
+
+.search-bar {
+  margin-bottom: 20px;
+}
+
+.search-bar input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.search-bar input[type="text"]:focus {
+  border-color: #007bff;
+  outline: none;
 }
 
 
@@ -62,11 +80,11 @@ body {
 
   button {
     &.btn-outline-secondary {
-      background-color: #28a745;
+      background-color: #28a74600;
     }
 
     &.btn-outline-danger {
-      background-color: red;
+      background-color: rgba(255, 0, 0, 0);
     }
   }
 }

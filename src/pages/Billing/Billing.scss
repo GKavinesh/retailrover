@@ -1,93 +1,127 @@
-/* Billing.scss */
+.datatable {
+  height: 600px;
+  padding: 20px;
 
-/* Customer Details */
+  .Title {
+    width: 100%;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-.home {
-  display: flex;
+    .link {
+      text-decoration: none;
+      color: #4caf50;
+      font-size: 16px;
+      font-weight: 500;
+      border: 1px solid #4caf50;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  }
 
-  .homeContainer {
-    flex: 6;
+  .cellWithImg {
+    display: flex;
+    align-items: center;
 
-.customer-details {
-  margin-bottom: 20px;
-}
+    .cellImg {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 20px;
+    }
+  }
 
-.customer-details label {
-  margin-right: 10px;
-}
+  .cellWithStatus {
+    padding: 5px;
+    border-radius: 5px;
 
-.customer-details input {
-  margin-bottom: 10px;
-  padding: 5px;
-  width: 200px;
-}
+    &.active {
+      background-color: rgba(0, 128, 0, 0.05);
+      color: #4caf50;
+    }
+    &.pending {
+      background-color: rgba(255, 217, 0, 0.05);
+      color: #ff9800;
+    }
+    &.passive {
+      background-color: rgba(255, 0, 0, 0.05);
+      color: #f44336;
+    }
+  }
 
-/* Billing Form */
-.billing-form input {
-  margin-bottom: 10px;
-  padding: 5px;
-}
+  .cellAction {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 
-.billing-form button {
-  padding: 5px 10px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-}
+    .viewButton,
+    .deleteButton {
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 500;
+    }
 
-.billing-form button:hover {
-  background-color: #0056b3;
-}
+    .viewButton {
+      color: #2196f3;
+      background-color: #e3f2fd;
+    }
 
-/* Product Table */
-.product-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-}
-
-.product-table th, .product-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
-}
-
-.product-table th {
-  background-color: #f2f2f2;
-}
-
-.product-table td {
-  vertical-align: middle;
-}
-
-.product-table button {
-  padding: 5px 10px;
-  margin-right: 5px;
-  background-color: #dc3545;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-}
-
-.product-table button:hover {
-  background-color: #c82333;
-}
-
-/* Action Buttons */
-.action-buttons button {
-  padding: 10px 20px;
-  margin-right: 10px;
-  background-color: #28a745;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-}
-
-.action-buttons button:hover {
-  background-color: #218838;
-}
-
+    .deleteButton {
+      color: #f44336;
+      background-color: #ffebee;
+    }
   }
 }
 
+/* Additional styles for billingForm */
+.billingForm {
+  
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.billingFormTitle {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.datagrid {
+  margin-bottom: 20px;
+  background-color: #c2b19c;
+}
+
+.inputFieldsContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.inputField,
+.emailInput {
+  width: 100%;
+}
+
+.totalPriceContainer {
+  margin-top: 20px;
+  font-size: 24px;
+  color: black;
+}
+
+.confirmTransactionButtonContainer {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.confirmTransactionButtonContainer button {
+  width: 300px;
+}

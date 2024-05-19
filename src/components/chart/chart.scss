@@ -5,6 +5,7 @@
   align-items: center; /* Center horizontally */
   justify-content: center; /* Center vertically */
   text-align: center; /* Center text */
+  border-radius: 100px;
 }
 
 .welcome {
@@ -12,9 +13,9 @@
 }
 
 .welcome img {
-  max-width: 100%;
+  max-width: 700px;
   height: auto;
   border-radius: 10px; /* Adjust the value to increase or decrease the border radius */
-  opacity: 50%;
+  opacity: 100%;
 }
 

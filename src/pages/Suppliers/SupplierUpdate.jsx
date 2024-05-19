@@ -11,8 +11,8 @@ const UpdateSupplier = () => {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
-        Name: "",
-        product: "",
+        supplier_name: "",
+        product_name: "",
         address:"",
         email: ""
     });
@@ -59,7 +59,7 @@ const UpdateSupplier = () => {
             console.log("Employee supplier: ",data);
 
 
-            navigate(`/employee`)
+            navigate(`/supplier`)
         }catch (error){
             console.error("Error updating supplier:",error.message);
         }
@@ -75,21 +75,21 @@ const UpdateSupplier = () => {
             <div className="form-container">
                 <div className="form-title">Edit Supplier Details</div>
                 <Form onSubmit={handleSubmit}>
-                    <Form.Group controlId="formBasicName">
+                    <Form.Group controlId="formBasicsupplier_name">
                         <Form.Control
                             type="text"
-                            name="Name"
+                            name="supplier_name"
                             placeholder="Enter Name"
-                            value={formData.Name}
+                            value={formData.supplier_name}
                             onChange={handleInputChange}
                         />
                     </Form.Group>
-                    <Form.Group controlId="formBasicproduct">
+                    <Form.Group controlId="formBasicproduct_name">
                         <Form.Control
                             type="text"
-                            name="product"
+                            name="product_name"
                             placeholder="Enter Product"
-                            value={formData.product}
+                            value={formData.product_name}
                             onChange={handleInputChange}
                         />
                     </Form.Group>

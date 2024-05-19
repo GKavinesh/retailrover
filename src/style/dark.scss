@@ -6,16 +6,18 @@
     stroke: rgba(228, 228, 228, 0.219);
   }
 
-  .table {
-    background-color: #111;
+  .tableContainer {
+    background-color: #ffffff;
 
     .tableCell {
-      color: gray;
+      background-color: white;
+      color: white;
     }
   }
 
   .navbar {
-    color: #999;
+    background-color: white;
+    color: #ffffff;
     border-color: #333;
 
     .search {
@@ -24,12 +26,12 @@
   }
 
   .sidebar {
-    background-color: #111;
+    background-color: #ffffff;
     border-color: #333;
 
     .top {
       .logo {
-        color: #999;
+        color: #ffffff;
       }
     }
     hr {
@@ -39,7 +41,7 @@
     ul {
       li {
         &:hover {
-          background-color: #333;
+          background-color: #d6d6d6;
         }
 
         .icon {
@@ -65,5 +67,13 @@
 
   input{
       background-color: transparent;
+  }
+
+  .home{
+    background-color: white;
+  }
+
+  .container{
+    background-color: white;
   }
 }
